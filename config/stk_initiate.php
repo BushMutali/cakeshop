@@ -61,7 +61,11 @@ if(isset($_POST['pay'])){
   curl_setopt($curl, CURLOPT_POSTFIELDS, $data_string);
   $curl_response = curl_exec($curl);
 
-  header('location: ../order.php?paysuccess');
+  if(isset($_SERVER['HTTP_REFERER'])){
+    // Redirect to the previous page
+    header("Location: {$_SERVER['HTTP_REFERER']}&paysuccess");
+    exit();
+  }
 
   
 };

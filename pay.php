@@ -5,7 +5,7 @@ if(isset($_GET['id'])){
     $orderid = $_GET['id'];
    
 }
-$sql = "SELECT total FROM sales WHERE receipt_no = '$orderid';";
+$sql = "SELECT * FROM sales WHERE receipt_no = '$orderid';";
 $result = mysqli_query($conn, $sql);
 $row = mysqli_fetch_assoc($result);
 $total = $row['total'];
@@ -23,6 +23,18 @@ $total = $row['total'];
 </head>
 <body>
     <section class="order-page">
+    <?php
+            if (isset($_GET["paysuccess"])):?>
+    <div class="payment">
+            <div class="payment-content">
+            <i class="fa-solid fa-truck-fast"></i>
+                <h1>Enter your pin to confirm payment.</h1>
+                <p>You will recieve an email notification on how to track your order. Thank You.</p>
+                <a href="index.php">Home</a>
+                <a href="product.php?id=<?=$row['cake_id']?>">Back</a>
+            </div>
+            </div>
+            <?php endif; ?>
     
         <div class="title order">
             <h2>Checkout</h2>

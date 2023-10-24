@@ -27,8 +27,6 @@
             <div class="payment-content">
             <i class="fa-solid fa-cart-shopping fa-bounce"></i>
                 <h1>Order '<?=$_GET["id"]?>' Placed</h1>
-                <h5>Total Amount: Ksh. 
-                </h5>
                 <p>Please continue to payment to confirm your order.</p>
                 <a href="payment.php?id=<?=$_GET['id']?>"><img src="assets/img/mpesa.png" alt=""></a>
             </div>

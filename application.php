@@ -1,14 +1,6 @@
 <?php
 session_start();
-include 'config/db.php';
-if(isset($_GET['id'])){
-    $orderid = $_GET['id'];
-   
-}
-$sql = "SELECT amount FROM bookings WHERE booking_id = '$orderid';";
-$result = mysqli_query($conn, $sql);
-$row = mysqli_fetch_assoc($result);
-$_GET['amount'] = $row['amount'];
+
 
 ?>
 <!DOCTYPE html>
@@ -29,9 +21,9 @@ $_GET['amount'] = $row['amount'];
             <div class="payment-content">
             <i class="fa-solid fa-truck-fast"></i>
                 <h1>Enter your pin to confirm payment.</h1>
-                <p>You will recieve an email notification on how to track your order. Thank You.</p>
+                <p>You will recieve an email notification on how to track your application. Thank You.</p>
                 <a href="index.php">Home</a>
-                <a href="order.php">Back</a>
+                <a href="training.php">Back</a>
             </div>
             </div>
             <?php endif; ?>
@@ -42,27 +34,13 @@ $_GET['amount'] = $row['amount'];
         <form action="config/stk_initiate.php" method="POST" class="pay">
             <div class="form-header-title">
                 <img src="assets/img/mpesa-logo.png" width="100px">
-                <h3>Confirm Payment of Ksh. <?=$_GET['amount']?> for <?=$_GET['id']?></h3>
+                <h3>Confirm Payment of Ksh. 300 for <?=$_GET['id']?></h3>
             </div>
             <h1 style="color: red; font-size: 12px;"><?php if (isset($_GET['empty'])){
         echo "Please fill all the fields";
         }?></h1>
-            <input type="hidden" name="user_email" value="<?php
-                if (isset($_SESSION["customer_name"])) {
-                    echo $customer_email;
-                }else if(isset($_SESSION["employee_name"])){
-                    echo $employee_email;
-                }
-            ?>">
-            <input type="hidden" name="user_name" value="<?php 
-                if (isset($_SESSION["customer_name"])) {
-                    echo $customer_name; 
-                }else if(isset($_SESSION["employee_name"])){
-                    echo $employee_name;
-                }
-            ?>">
             <div class="form-input">
-                <input type="hidden" value="<?=$_GET['amount']?>" name="amount" required> 
+                <input type="hidden" value="300" name="amount" required> 
             </div>
             <div class="form-input">
                 <label>Phone Number</label>

@@ -240,3 +240,17 @@ if(isset($_POST['pay-now'])){
 
     header("location: ../pay.php?id=$receiptNo");
 }
+
+if (isset($_POST['apply'])) {
+    $first_name = $_POST['first_name'];
+    $second_name = $_POST['second_name'];
+    $email = $_POST['email'];
+    $town = $_POST['town'];
+    $applicationNo = 'APP-' . random_int(1, 1000);
+    
+    $sql = "INSERT INTO applications (first_name, second_name, email, town, app_no) VALUES ('$first_name', '$second_name', '$email', '$town', '$applicationNo');";
+    mysqli_query($conn, $sql);
+    mysqli_close($conn);
+
+    header("location: ../training.php?id=$applicationNo");
+}

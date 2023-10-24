@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 23, 2023 at 11:34 PM
+-- Generation Time: Oct 24, 2023 at 06:32 AM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.2.0
 
@@ -42,6 +42,24 @@ INSERT INTO `admintbl` (`admin_username`, `admin_password`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `applications`
+--
+
+CREATE TABLE `applications` (
+  `id` int(11) NOT NULL,
+  `first_name` varchar(255) DEFAULT NULL,
+  `second_name` varchar(255) DEFAULT NULL,
+  `email` varchar(255) DEFAULT NULL,
+  `town` varchar(255) DEFAULT NULL,
+  `app_no` varchar(100) DEFAULT NULL,
+  `app_status` enum('received','processed','approved') DEFAULT 'received',
+  `payment` enum('paid','not paid') DEFAULT 'not paid',
+  `created` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `bookings`
 --
 
@@ -60,15 +78,6 @@ CREATE TABLE `bookings` (
   `payment_status` enum('paid','pending') DEFAULT 'pending',
   `amount` int(6) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `bookings`
---
-
-INSERT INTO `bookings` (`id`, `booking_id`, `_name`, `email`, `cake_type`, `cake_filling`, `cake_shape`, `_message`, `cake_size`, `cake_design`, `created`, `payment_status`, `amount`) VALUES
-(2, 'ORD-46e420', 'samantha', 'samantha@email.com', 'Strawberry', 'Butter Cream', 'Circle', 'Happy Birthday Samantha', '20cm', 'pink', '2023-10-23 14:45:40', 'pending', 0),
-(3, 'ORD-779a6b', 'samantha', 'samantha@email.com', 'Chocolate', 'Cream Cheese', 'Circle', 'heey', '25cm', 'pink', '2023-10-23 15:11:12', 'pending', 0),
-(4, 'ORD-21f93a', 'samantha', 'samantha@email.com', 'White', 'Vanilla', 'Square', 'have a blast', '25cm', 'pinkish', '2023-10-23 18:54:14', 'pending', 3500);
 
 -- --------------------------------------------------------
 
@@ -160,9 +169,31 @@ CREATE TABLE `invoices` (
   `date_created` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `sales`
+--
+
+CREATE TABLE `sales` (
+  `id` int(11) NOT NULL,
+  `receipt_no` varchar(20) NOT NULL,
+  `cake_id` int(11) DEFAULT NULL,
+  `cake_name` varchar(255) DEFAULT NULL,
+  `customer_name` varchar(255) DEFAULT NULL,
+  `email` varchar(255) DEFAULT NULL,
+  `total` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
 --
 -- Indexes for dumped tables
 --
+
+--
+-- Indexes for table `applications`
+--
+ALTER TABLE `applications`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `bookings`
@@ -197,14 +228,26 @@ ALTER TABLE `invoices`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `sales`
+--
+ALTER TABLE `sales`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- AUTO_INCREMENT for dumped tables
 --
+
+--
+-- AUTO_INCREMENT for table `applications`
+--
+ALTER TABLE `applications`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `bookings`
 --
 ALTER TABLE `bookings`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `cakes`
@@ -229,6 +272,12 @@ ALTER TABLE `employees`
 --
 ALTER TABLE `invoices`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `sales`
+--
+ALTER TABLE `sales`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

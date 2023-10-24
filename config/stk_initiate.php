@@ -1,11 +1,11 @@
 <?php
-if(isset($_POST['submit'])){
+if(isset($_POST['pay'])){
 
 
   date_default_timezone_set('Africa/Nairobi');
-  $consumerKey = 'ATVpCMIvaDl458dMVGMVLunfaOAMAZiG'; 
-  $consumerSecret = 'O63mOyIssuEDwdZ5'; 
-  $BusinessShortCode = '8186652';
+  $consumerKey = 'olYBDCGydniCNpVaJmrOEJScY0fkJOTG'; 
+  $consumerSecret = 'ANU7sMcz27AxL6Cf'; 
+  $BusinessShortCode = '174379';
   $Passkey = 'bfb279f9aa9bdbcf158e97dd71a467cd2e0c893059b10f78e6b72ada1ed2c919';  
   
    $PartyA = $_POST['phone'];
@@ -60,8 +60,9 @@ if(isset($_POST['submit'])){
   curl_setopt($curl, CURLOPT_POST, true);
   curl_setopt($curl, CURLOPT_POSTFIELDS, $data_string);
   $curl_response = curl_exec($curl);
-  print_r($curl_response);
 
-  echo $curl_response;
+  header('location: ../order.php?paysuccess');
+
+  
 };
 ?>

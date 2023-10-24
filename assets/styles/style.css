@@ -203,7 +203,7 @@ color: var(--creamy-yellow);
 .cakes-container{
     display: flex;
     align-items: center;
-    grid-gap: 5rem;
+    grid-gap: 3rem;
     padding: 2rem 5rem;
     flex-wrap: wrap;
 }
@@ -810,7 +810,20 @@ color: var(--creamy-yellow);
     color: var(--chocolate-red);
     margin-bottom: 2rem;
 }
-
+.payment-content i{
+    font-size: 40px;
+    animation: moveForward 2s forwards;
+    color: var(--chocolate-red);
+}
+@keyframes moveForward{
+    0%{
+        transform: translateX(0);
+    }
+    100%{
+        transform: translateX(600px);
+        opacity: 0;
+    }
+}
 .pay{
     background: white;
     margin: 3rem 5rem;

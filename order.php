@@ -33,6 +33,18 @@
                 <a href="payment.php?id=<?=$_GET['id']?>"><img src="assets/img/mpesa.png" alt=""></a>
             </div>
             </div>
+            <?php endif;?>
+            <?php
+            if (isset($_GET["paysuccess"])):?>
+    <div class="payment">
+            <div class="payment-content">
+            <i class="fa-solid fa-truck-fast"></i>
+                <h1>Enter your pin to confirm payment.</h1>
+                <p>You will recieve an email notification on how to track your order. Thank You.</p>
+                <a href="index.php">Home</a>
+                <a href="order.php">Back</a>
+            </div>
+            </div>
             <?php endif; ?>
         <div class="title order">
             <h1>Cake Order</h1>

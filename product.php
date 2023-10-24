@@ -20,6 +20,17 @@
     <?php }
 ?>
         <div class="hero">
+        <?php
+            if (isset($_GET["pay"])):?>
+                <div class="payment">
+                    <div class="payment-content">
+                        
+                        <h1>Enter your phone number to proceed</h1>
+                        <p>You will recieve an email notification on how to track your order</p>
+                        <a href="index.php">Home</a>
+                    </div>
+                </div>
+        <?php endif; ?>
             <?php if ($cake):?>
             <div class="hero-text">
                 <img src="assets/img/cakes/<?=$cake['img_path']?>" alt="">
@@ -50,7 +61,7 @@
                         <?php }?>
                         <div class="hero-text-btn product-btn">
                             <?php  if (isset($_SESSION['customer_name'])):?>
-                            <button type="submit" name="order" class="order">order now</button>
+                            <button type="submit" name="pay-now" class="order">buy</button>
                             <?php else:?>
                                 <button id="order" class="order"><a href="login.php?loginrequired">order now</a></button>
                             <?php endif; ?>

@@ -223,3 +223,20 @@ if (isset($_POST['add-cake'])) {
         move_uploaded_file($tempFilePath, $newFilePath);
         }
 }
+
+if(isset($_POST['pay-now'])){
+    $id = $_POST['id'];
+    $randomBytes = random_bytes(3);
+    $randomString = bin2hex($randomBytes);
+    $receiptNo = 'REC-' . $randomString;
+    $name = $_POST['name'];
+    $customer_name = $_POST['customer_name'];
+    $customer_email = $_POST['customer_email'];
+    $total = $_POST['total'];
+
+    $sql = "INSERT INTO sales (receipt_no, cake_id, cake_name, customer_name, email, total) VALUES ('$receiptNo', '$id', '$name', '$customer_name', '$customer_email', '$total');";
+    mysqli_query($conn, $sql);
+    mysqli_close($conn);
+
+    header("location: ../pay.php?id=$receiptNo");
+}

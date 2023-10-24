@@ -5,10 +5,10 @@ if(isset($_GET['id'])){
     $orderid = $_GET['id'];
    
 }
-$sql = "SELECT amount FROM bookings WHERE booking_id = '$orderid';";
+$sql = "SELECT total FROM sales WHERE receipt_no = '$orderid';";
 $result = mysqli_query($conn, $sql);
 $row = mysqli_fetch_assoc($result);
-$_GET['amount'] = $row['amount'];
+$total = $row['total'];
 
 ?>
 <!DOCTYPE html>
@@ -30,7 +30,7 @@ $_GET['amount'] = $row['amount'];
         <form action="config/stk_initiate.php" method="POST" class="pay">
             <div class="form-header-title">
                 <img src="assets/img/mpesa-logo.png" width="100px">
-                <h3>Confirm Payment of Ksh. <?=$_GET['amount']?> for <?=$_GET['id']?></h3>
+                <h3>Confirm Payment of Ksh. <?=$total?> for <?=$_GET['id']?></h3>
             </div>
             <h1 style="color: red; font-size: 12px;"><?php if (isset($_GET['empty'])){
         echo "Please fill all the fields";
@@ -50,7 +50,7 @@ $_GET['amount'] = $row['amount'];
                 }
             ?>">
             <div class="form-input">
-                <input type="hidden" value="<?=$_GET['amount']?>" name="amount" required> 
+                <input type="hidden" value="<?=$total?>" name="amount" required> 
             </div>
             <div class="form-input">
                 <label>Phone Number</label>

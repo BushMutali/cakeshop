@@ -40,7 +40,7 @@
                 <h5><a href="product.php?id=<?=$cakes['id']?>"><?=$cakes['cake_name']?></a></h5>
                 <h4>Ksh. <?=$cakes['cake_price']?></h4>
                 <div class="card-btn">
-                    <button>buy now</button>
+                    <button><a href="product.php?id=<?=$cakes['id']?>">buy now</a></button>
                     <button>wishlist</button>
                 </div>
             </div> 

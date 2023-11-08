@@ -18,7 +18,7 @@
                 </thead>
                 <tbody>
                     <?php foreach ($bookings as $booking): ?>
-                    <tr>
+                    <tr class="active-row">
                         <td><?=$booking['booking_id']?></td>
                         <td><?=$booking['_name']?></td>
                         <td><?=$booking['email']?></td>

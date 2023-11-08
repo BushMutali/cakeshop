@@ -18,7 +18,7 @@
     include 'navbar.php';
     ?>
 
-<?php if (isset($_SESSION["customer_name"])):?>
+<?php if (isset($_SESSION["customer_name"])){?>
     <div class="pop-up" id="popup">
         <h1>Welcome <i class="fa-solid fa-circle-info fa-beat-fade"></i></h1> 
         <h5>Hey <?= $_SESSION["customer_name"]?>, check out our cake collection!</h5>
@@ -34,6 +34,6 @@
   });
     </script> -->
     <script src="assets/js//script.js"></script>
-<?php endif;?>
+<?php }?>
 
     

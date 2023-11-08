@@ -231,7 +231,7 @@ function loginEmployee($conn, $employee_email, $employee_password){
         session_start();
         $_SESSION["employee_name"] = $employeeEmailExists["employee_name"];
         $_SESSION["employee_email"] = $employeeEmailExists["employee_email"];
-        header("location: ../employee/home.php");
+        header("location: ../index.php");
         exit();
     }
 }

@@ -36,7 +36,7 @@ while ($bookingRow = $bookingResult->fetch_assoc()) {
                 if (isset($_GET['bookings'])) {
                     include '../admin/bookings.php';
                 }else{
-                    include 'dashboard.php';
+                    include '../admin/bookings.php';
                 }
             ?>
         </main>

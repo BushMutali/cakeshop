@@ -5,12 +5,12 @@
             } ?></span>
         </a>
         <ul class="side-menu top">
-            <li class="">
+            <!-- <li class="">
                 <a href="home.php">
                     <i class="fa-solid fa-house"></i>
                     <span class="text">Dashboard</span>
                 </a>
-            </li>
+            </li> -->
             <li>
                 <a href="home.php?bookings">
                     <i class="fa-solid fa-bookmark"></i>
@@ -26,6 +26,12 @@
                 </a>
             </li>
 
+            <li>
+                <a href="../index.php" class="logout">
+                <i class="fa-solid fa-house"></i>
+                    <span class="text">Home</span>
+                </a>
+            </li>
             <li>
                 <a href="logout.php" class="logout">
                     <i class="fa-solid fa-right-from-bracket"></i>

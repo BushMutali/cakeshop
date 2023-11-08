@@ -30,7 +30,7 @@ if (isset($_GET['cake-added'])) {
         </div>
         <div class="dashboard-card">
             
-            <h1><i class="fa-solid fa-users"></i><a href="dashboard.php?bookings">Employees</a></h1>
+            <h1><i class="fa-solid fa-users"></i><a href="dashboard.php?employees">Employees</a></h1>
             <?php
                 $sql = "SELECT COUNT(*) as total_rows FROM employees";
                 $result = $conn->query($sql);

@@ -21,7 +21,7 @@
 }
 a{
     text-decoration: none;
-    color: var(--mint-green);
+
 }
 html{
     scroll-behavior: smooth;
@@ -522,38 +522,51 @@ color: var(--creamy-yellow);
 
 
 .customer-admin-page form table{
-    width: 70%;
-    text-align: left;
-    margin-top: 3rem;
-    background: var(--sky);
-    padding: 1rem 2rem;
-    height: auto;
+    border-collapse: collapse;
+    margin: 25px 0;
+    font-size: 0.9em;
+    font-family: sans-serif;
+    min-width: 400px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+    
+}
+.customer-admin-page form th,
+.customer-admin-page form td {
+    padding: 12px 15px;
 }
 
-.customer-admin-page form table tr{
-    height: 35px;
-    width: 100%;
+.customer-admin-page form table thead tr{
+    background-color: #009879;
+    color: #ffffff;
+    text-align: left;
+
 }
 .customer-admin-page form table tr th{
     font-size: 16px;
     margin-bottom: 2rem;
     width: 15rem;
-    border-bottom: 1px solid var(--chocolate-brown);
 }
 
-.customer-admin-page form table tr th:nth-child(2){
-    border-bottom: 1px solid var(--chocolate-brown);
+.customer-admin-page form table tbody tr {
+    border-bottom: 1px solid #dddddd;
+    
 }
 
-.customer-admin-page form table tr th:nth-child(3){
-    border-bottom: 1px solid var(--chocolate-brown);
+.customer-admin-page form table tbody tr:nth-of-type(even) {
+    background-color: #f3f3f3;
 }
-.customer-admin-page form table tr th:nth-child(4){
-    border-bottom: 1px solid var(--chocolate-brown);
+
+.customer-admin-page form table tbody tr:last-of-type {
+    border-bottom: 2px solid #009879;
 }
+.customer-admin-page form table tbody tr.active-row {
+    font-weight: bold;
+    color: #009879;
+}
+
+
 .customer-admin-page form table tr td{
-    height: 35px;
-    padding: .5rem 0;
+    font-weight: 300;
 }
 .customer-admin-page form table tr td a{
     text-decoration: none;

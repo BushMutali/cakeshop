@@ -9,6 +9,9 @@
                 <?php
                     if (isset($_SESSION["customer_name"])){
                         echo '<li><a href="logout.php">logout</a></li>';
+                    }elseif (isset($_SESSION["employee_name"])) {
+                        echo '<li><a href="employee/home.php">dashboard</a></li>';
+                        echo '<li><a href="logout.php">logout</a></li>';
                     }
                     else {
                         echo '<li><a href="login.php">login</a></li>';

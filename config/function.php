@@ -40,7 +40,7 @@ function validateUpdateEmail($newCustomerEmail){
 }
 
 function emailExists($conn, $customer_email){
-    $sql = "SELECT * FROM customers WHERE customer_email = ?;";
+    $sql = "SELECT * FROM customers WHERE email = ?;";
      $stmt = mysqli_stmt_init($conn);
      mysqli_stmt_prepare($stmt, $sql);
  
@@ -61,7 +61,7 @@ function emailExists($conn, $customer_email){
 }
 
 function employeeEmailExists($conn, $employee_email){
-    $sql = "SELECT * FROM employees WHERE employee_email = ?;";
+    $sql = "SELECT * FROM employees WHERE email = ?;";
      $stmt = mysqli_stmt_init($conn);
      mysqli_stmt_prepare($stmt, $sql);
  
@@ -103,7 +103,7 @@ function emailUpdateExists($conn, $newCustomerEmail){
 }
 
 function createCustomer($conn, $customer_name, $customer_email, $password1){
-    $sql = "INSERT INTO customers (customer_name, customer_email, customer_password) VALUES (?,?,?)";
+    $sql = "INSERT INTO customers (name, email, password) VALUES (?,?,?)";
     $stmt = mysqli_stmt_init($conn);
     mysqli_stmt_prepare($stmt, $sql);
     $hashedPassword = password_hash($password1, PASSWORD_DEFAULT);
@@ -122,7 +122,7 @@ function loginCustomer($conn, $customer_email, $customer_password){
         exit();
     }
 
-    $hashedPass = $emailExists["customer_password"];
+    $hashedPass = $emailExists["password"];
     $checkpass = password_verify($customer_password, $hashedPass);
 
     if ($checkpass === false) {
@@ -158,7 +158,7 @@ function invalidUsername($admin_username){
 }
 
 function loginAdmin($conn, $admin_username, $admin_password){
-    $sql = 'SELECT *  FROM admintbl WHERE admin_username = ? AND admin_password = ?;';
+    $sql = 'SELECT *  FROM admintbl WHERE username = ? AND password = ?;';
     $stmt = mysqli_stmt_init($conn);
     mysqli_stmt_prepare($stmt, $sql);
     mysqli_stmt_bind_param($stmt, 'ss', $admin_username, $admin_password);
@@ -167,7 +167,8 @@ function loginAdmin($conn, $admin_username, $admin_password){
     $result = mysqli_stmt_get_result($stmt);
     if($row = mysqli_fetch_assoc($result)){
         session_start();
-        $_SESSION["admin"] =  $row["admin_username"];
+        $_SESSION["admin"] =  $row["username"];
+        $_SESSION["admin_email"] = $row["email"];
         header("location: ../admin/dashboard.php");
         exit();
     }else{
@@ -202,7 +203,7 @@ function addOrder($conn, $bookingId, $name, $email, $cake_type, $cake_filling, $
 }
 
 function createEmployee($conn, $employee_name, $employee_email, $password1){
-    $sql = "INSERT INTO employees (employee_name, employee_email, employee_password) VALUES (?,?,?);";
+    $sql = "INSERT INTO employees (name, email, password) VALUES (?,?,?);";
     $stmt = mysqli_stmt_init($conn);
     mysqli_stmt_prepare($stmt, $sql);
     $hashedPassword = password_hash($password1, PASSWORD_DEFAULT);
@@ -219,7 +220,7 @@ function loginEmployee($conn, $employee_email, $employee_password){
         exit();
     }
 
-    $hashedPass = $employeeEmailExists["employee_password"];
+    $hashedPass = $employeeEmailExists["password"];
     $checkpass = password_verify($employee_password, $hashedPass);
 
     if ($checkpass === false) {
@@ -229,17 +230,17 @@ function loginEmployee($conn, $employee_email, $employee_password){
 
     elseif ($checkpass === true) {
         session_start();
-        $_SESSION["employee_name"] = $employeeEmailExists["employee_name"];
-        $_SESSION["employee_email"] = $employeeEmailExists["employee_email"];
+        $_SESSION["employee_name"] = $employeeEmailExists["name"];
+        $_SESSION["employee_email"] = $employeeEmailExists["email"];
         header("location: ../index.php");
         exit();
     }
 }
 
-function addCake($conn, $cake_name, $cake_price, $cake_description, $newFileName){
+function addCake($conn, $cake_name, $category, $cake_price, $cake_description, $newFileName){
     //check if cake name already exists
     function checkCakeName($conn, $cake_name){
-        $sql = "SELECT * FROM cakes WHERE cake_name = ?;";
+        $sql = "SELECT * FROM cakes WHERE name = ?;";
      $stmt = mysqli_stmt_init($conn);
      mysqli_stmt_prepare($stmt, $sql);
  
@@ -263,14 +264,14 @@ function addCake($conn, $cake_name, $cake_price, $cake_description, $newFileName
         header("location: ../admin/add.php?nametaken");
         exit();
     }else{
-        $sql = "INSERT INTO cakes (cake_name, cake_price, img_path, cake_description) VALUES (?,?,?,?);";
+        $sql = "INSERT INTO cakes (name, category, price, description, img_file_path) VALUES (?,?,?,?,?);";
         $stmt = mysqli_stmt_init($conn);
         mysqli_stmt_prepare($stmt, $sql);
-        mysqli_stmt_bind_param($stmt, "ssss", $cake_name, $cake_price, $newFileName, $cake_description);
+        mysqli_stmt_bind_param($stmt, "sssss", $cake_name, $category, $cake_price, $cake_description, $newFileName);
         mysqli_stmt_execute($stmt);
         mysqli_stmt_close($stmt);
         mysqli_close($conn);
-        header("location: ../admin/dashboard.php?cake-added");
+        header("location: ../admin/dashboard.php?notification&cake-added");
     }
 
 }

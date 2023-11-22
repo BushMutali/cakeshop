@@ -44,7 +44,7 @@ if (isset($_POST['admin-login'])) {
     $admin_password = $_POST['password'];
 
     if(empty($admin_username) || empty($admin_password)){
-        header('location: ../admin/index.php?empty');
+        header('location: ../login.php?empty');
     }
 
     if (invalidUsername($admin_username) !== false) {
@@ -193,6 +193,7 @@ if (isset($_POST['add-cake'])) {
     $cake_name = $_POST['cake_name'];
     $cake_price = $_POST['cake_price'];
     $cake_description = $_POST['cake_description'];
+    $category = $_POST['category'];
 
     if (!preg_match('/^[a-zA-ZA\s]*$/', $cake_name)) {
         header('location: ../admin/add.php?invalidname');
@@ -200,7 +201,7 @@ if (isset($_POST['add-cake'])) {
     }
 
     if (preg_match('/^[a-zA-ZA\s]*$/', $cake_price)) {
-        header("location: ../employee/signup.php?invalidpriceformat");
+        header("location: ../admin/add.php?invalidpriceformat");
         exit();
     }
 
@@ -219,7 +220,7 @@ if (isset($_POST['add-cake'])) {
         $newFileName = uniqid() . '_'. random_int(1, 1000). '.' . $fileInfo["extension"];
         $newFilePath = "../assets/img/cakes/" . $newFileName;
 
-        addCake($conn, $cake_name, $cake_price, $cake_description, $newFileName);
+        addCake($conn, $cake_name, $category, $cake_price, $cake_description, $newFileName);
         move_uploaded_file($tempFilePath, $newFilePath);
         }
 }

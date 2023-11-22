@@ -52,65 +52,15 @@
                 </form>
 
                 <!-- admin login form  -->
-                <form action="config/forms.php" method="post" id="adminForm" style="display: none;">
-                    <p class="error" style="color: red;"><?php 
-                        if(isset($_GET['empty'])){
-                            echo 'Fill in all the fields!';
-                        }elseif (isset($_GET['invalidusername'])) {
-                            echo 'Invalid username!';
-                        }elseif (isset($_GET['loginerror'])) {
-                            echo 'Invalid details!';
-                        }
-                    ?></p>
-                    <span><i class="fa-solid fa-lock"></i> Admin</span>
-                    <div class="form-input">
-                        <label>username</label>
-                        <input type="text" name="username" required>
-                    </div>
-                    <div class="form-input">
-                        <label>password</label>
-                        <input type="password" name="password" id="passwordField" required>
-                        <i class="fa-solid fa-eye" id="hide" ></i>
-                        <i class="fa-solid fa-eye-slash" id="show" style="display: none;"></i>
-                    </div>
-                    <a href="">Forgot password?</a>
-                    <button type="submit" name="admin-login">login</button>
-                </form>
+                
                 
                 <!-- employee login form  -->
                 
-                <form action="config/forms.php" method="post" id="employeeForm" style="display: none;">
-                    <p class="error" style="color: red;"><?php 
-                        if(isset($_GET["password-error"])){
-                            echo "Invalid Password!";
-                        }elseif(isset($_GET['empty'])){
-                            echo 'Fill in all the fields!';
-                        }elseif (isset($_GET['invalidemail'])) {
-                            echo 'Invalid email format!';
-                        }elseif (isset($_GET['emaildoesnotexist'])) {
-                            echo 'Email does not exist!';
-                        }elseif (isset($_GET['regsuccess'])) {
-                            echo 'Registration Successfull, you can now login!';
-                        }
-                    ?></p>
-                    <span><i class="fa-solid fa-user-group"></i> Employee</span>
-                    <div class="form-input">
-                        <label>email</label>
-                        <input type="email" name="email" required>
-                    </div>
-                    <div class="form-input">
-                        <label>password</label>
-                        <input type="password" name="password" id="passwordField" required>
-                        <i class="fa-solid fa-eye" id="hide" ></i>
-                        <i class="fa-solid fa-eye-slash" id="show" style="display: none;"></i>
-                    </div>
-                    <a href="">Forgot password?</a>
-                    <button type="submit" name="employee-login">login</button>
-                </form>
+               
 
                 <div class="user">
-                    <button id="adminBtn">Admin</button>
-                    <button id="employeeBtn">Employee</button>
+                    <button onclick="adminLogin()">Admin</button>
+                    <button onclick="employeeLogin()">Employee</button>
                     <button id="customerBtn">Customer</button>
                 </div>
                 <div class="or">Or</div>
@@ -125,6 +75,12 @@
     <script>
         function goBack() {
             window.history.back();
+        }
+        function adminLogin(){
+            window.location.href = 'admin/index.php';
+        }
+        function employeeLogin(){
+            window.location.href = 'employee/index.php';
         }
         document.addEventListener('DOMContentLoaded', function () {
             var passwordField = document.getElementById('passwordField');
@@ -150,36 +106,6 @@
                 showIcon.style.display = 'inline-block';
             });
 
-            // get the login forms and buttons
-    var userForm = document.getElementById('userForm');
-    var adminForm = document.getElementById('adminForm');
-    var employeeForm = document.getElementById('employeeForm');
-    var adminBtn = document.getElementById('adminBtn');
-    var employeeBtn = document.getElementById('employeeBtn');
-    var customerBtn = document.getElementById('customerBtn');
-
-    function showAdminForm() {
-        userForm.style.display = 'none';
-        adminForm.style.display = 'flex';
-        employeeForm.style.display = 'none';
-    }
-
-    // Function to show the employee form and hide others
-    function showEmployeeForm() {
-        userForm.style.display = 'none';
-        adminForm.style.display = 'none';
-        employeeForm.style.display = 'flex';
-    }
-
-    function showUserForm() {
-        userForm.style.display = 'flex';
-        adminForm.style.display = 'none';
-        employeeForm.style.display = 'none';
-    }
-    
-    adminBtn.addEventListener('click', showAdminForm);
-    employeeBtn.addEventListener('click', showEmployeeForm);
-    customerBtn.addEventListener('click', showUserForm);
             
         });
     </script>

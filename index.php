@@ -1,54 +1,7 @@
-
-<!DOCTYPE html>
-<html lang="en"> 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="script.js" async></script>
-    <script src="cart.js" async></script>
-    <title>Cake Haven</title>
-    <link rel="stylesheet" href="assets/styles/style.css">
-    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-     <!-- fontawesome -->
-     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-     <!-- bootstrap  -->
-     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-
-</head>
-<body>
-    <main>
-        <div id="loading-overlay" class="load">
-            <div class="spinner-border text-warning" role="status">
-                <span class="sr-only">Loading...</span>
-              </div>
-        </div>
-        <section class="header">
-            <nav>
-                <h1><a href="index.php"><img src="assets/img/logo.png" alt="logo" width="250px"></a></h1>
-                <ul id="_menu">
-                    <li><a href="index.php">home</a></li>
-                    <li><a href="about.php">about us</a></li>
-                    <li><a href="services.php">services</a></li>
-                    <li><a href="login.php">login</a></li>
-                    <li><a href="signup.php">sign up</a></li>
-                    <li><i class="fa-solid fa-cart-shopping" id="cart-icon" onclick="openCartPage()"><span id="cart-count">0</span></i></li>
-                </ul>
-                <i class="fa-solid fa-bars" id="menu"></i>
-            </nav>
-            <div class="phone-menu" id="dropdown">
-                <ul>
-                <li><a href="index.php">home</a></li>
-                <li><a href="about.php">about us</a></li>
-                <li><a href="services.php">services</a></li>
-                <li><a href="login.php">login</a></li>
-                <li><a href="signup.php">sign up</a></li>
-                <li><i class="fa-solid fa-cart-shopping" id="cart-icon" onclick="openCartPage()"><span>0</span></i></li>
-                </ul>
-            </div>
+<?php
+    include 'header.php';
+?>
+    
             
             <section class="hero">
                 <div class="hero-text">
@@ -57,9 +10,9 @@
                     <?php if (isset($_SESSION["customer_name"]) || isset($_SESSION["employee_name"])):?>
                     <a href="order.php" class="heroBtn order">Order Now</a>
                     <?php else:?>
-                        <a href="login.php?loginrequired" class="heroBtn order">Order Now</a>
+                        <span></span><a href="login.php?loginrequired" class="heroBtn order">Order Now</a>
                     <?php endif;?>
-                    <a href="services.php" class="heroBtn read">Read More</a>
+                    <a href="services.php" class="heroBtn read">Read More</a></span>
                 </div>
                 <div class="hero-image">
                     <!-- <img src="cake-hero.png" alt="cake image" width="30px"> -->
@@ -76,11 +29,11 @@
             ?>
                 <div class="cake-box" >
                     <div class="cake-image">
-                        <img src="assets/img/cakes/<?=$cakes['img_path']?>" alt="">
+                        <img src="assets/img/cakes/<?=$cakes['img_file_path']?>" alt="">
                     </div>
                     <div class="cake-text">
-                        <h2><?=$cakes['cake_name']?></h2>
-                        <p data-price="250">Ksh. <?=$cakes['cake_price']?></p>
+                        <h2><?=$cakes['name']?></h2>
+                        <p data-price="250">Ksh. <?=$cakes['price']?></p>
                     </div>
                     <button class="add-to-cart-btn">add to cart</button>
                 </div>

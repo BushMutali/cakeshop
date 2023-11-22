@@ -16,7 +16,7 @@
                                     <table>
                                         <thead>
                                             <tr class="table100-head">
-                                                <th class="newColumn">Booking Id</th>
+                                                <th class="column1">Booking Id</th>
                                                 <th class="column1">Email</th>
                                                 <th class="column2">Design</th>
                                                 <th class="column3">Type</th>

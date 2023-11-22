@@ -22,7 +22,7 @@
         <div class="login-form-container">
             <div class="login-form">
                 <h1>signup</h1>
-                <form action="" method="" >
+                <form action="config/forms.php" method="post" >
                     <p class="error" style="color: red;"><?php 
                         if(isset($_GET["passwordsdon'tmatch"])){
                             echo "Passwords didn't match!";

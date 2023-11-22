@@ -2,6 +2,16 @@
 include 'header.php';
 require'../config/db.php';
 
+//cakes
+$cakesql = "SELECT * FROM cakes";
+$cakeResult = $conn->query($cakesql);
+
+$cakes = array();
+
+while ($cakeRow = $cakeResult->fetch_assoc()) {
+    $cakes[] = $cakeRow;
+}
+
 // customers 
 $sql = "SELECT 'customer' as type, customers.*, invoices.invoice_number, invoices.due_date, invoices.total_amount, invoices.payment_status
 FROM customers
@@ -47,7 +57,7 @@ while ($bookingRow = $bookingResult->fetch_assoc()) {
                             echo 'Deleted';
                         }elseif (isset($_GET['updated'])){
                             echo 'Success';
-                        }elseif (isset($_GET['regsuccess'])){
+                        }elseif (isset($_GET['regsuccess']) || isset($_GET['cake-added'])){
                             echo 'Added';
                         }?>
         </h1> <div class="wrapper"> <svg class="checkmark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52"> <circle class="checkmark__circle" cx="26" cy="26" r="25" fill="none"/> <path class="checkmark__check" fill="none" d="M14.1 27.2l7.1 7.2 16.7-16.8"/>
@@ -74,6 +84,9 @@ while ($bookingRow = $bookingResult->fetch_assoc()) {
                         else if (isset($_GET['employees'])) {
                             echo 'Employees';
                         }
+                        elseif (isset($_GET['cakes'])){
+                            echo 'Cakes';
+                        }
                         else{
                             echo 'Dashboard';
                         }
@@ -90,7 +103,7 @@ while ($bookingRow = $bookingResult->fetch_assoc()) {
                             </div>
                             <div class="text">
                                 <h4><?php echo $_SESSION["admin"]?></h4>
-                                <p>admin@gmail.com</p>
+                                <p><?php echo $_SESSION["admin_email"]?></p>
                             </div>
                         </div>
                     </ul>
@@ -103,6 +116,8 @@ while ($bookingRow = $bookingResult->fetch_assoc()) {
                     include 'employees.php';
                 }elseif (isset($_GET['bookings'])) {
                     include 'bookings.php';
+                } elseif (isset($_GET['cakes'])){
+                    include 'cakes.php';
                 }else{
                     include 'home.php';
                 }

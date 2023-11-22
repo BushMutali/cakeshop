@@ -1,9 +1,5 @@
 <?php
 include 'header.php';
-    include 'sidebar.php';
-?>
-
-<?php
 require'../config/db.php';
 
 // customers 
@@ -37,13 +33,19 @@ while ($bookingRow = $bookingResult->fetch_assoc()) {
 }
 ?>
 
-
-<section id="content">
-        <main>
-            <div class="header-title">
-                <div class="left">
-                    <h1>
-                    <?php if (isset($_GET['customers'])) {
+<!-- notification -->
+    <div class="item-deleted" id="animatedDiv">
+        <h1>Deleted</h1> <div class="wrapper"> <svg class="checkmark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52"> <circle class="checkmark__circle" cx="26" cy="26" r="25" fill="none"/> <path class="checkmark__check" fill="none" d="M14.1 27.2l7.1 7.2 16.7-16.8"/>
+        </svg>
+        </div>
+    </div>
+<!-- end notification  -->
+    <main>
+        <section class="dashboard-container">
+            <?php include 'sidebar.php' ?>
+            <div class="dashboard-content">
+                <nav>
+                    <h1><?php if (isset($_GET['customers'])) {
                         echo 'Customers';
                         }else if (isset($_GET['invoices'])) {
                             echo 'Invoices';
@@ -57,27 +59,26 @@ while ($bookingRow = $bookingResult->fetch_assoc()) {
                         else{
                             echo 'Dashboard';
                         }
-                    ?>
-                    </h1>
-
-
-                    <h5><?php if(isset($_GET['noneselected'])){
-                            echo 'No user selected!';
-                        }elseif (isset($_GET['success'])){
-                            echo 'deleted successfully';
-                        }elseif (isset($_GET['updated'])){
-                            echo 'Customer details updated successfully!';
-                        }elseif (isset($_GET['regsuccess'])){
-                            echo 'Employee added successfully';
-                        }
-                      ?> </h5>
-                </div>
-                <a href="" class="btn-download">
-                    <i class="fa-solid fa-download"></i>
-                    <span class="text">Download PDF</span>
-                </a>
-            </div>
-            <?php
+                    ?> <i class="fa-solid fa-chevron-right"></i></h1>
+                    <div class="query">
+                        <input type="search" placeholder="Search...">
+                        <button type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
+                    </div>
+                    <ul>
+                        <li><a href="#"><i class="fa-solid fa-bell"></i></a></li>
+                        <div class="profile">
+                            <div class="profile-img">
+                                <img src="../assets/img/avatar.jpg" alt="profile image">
+                            </div>
+                            <div class="text">
+                                <h4>Admin</h4>
+                                <p>admin@gmail.com</p>
+                            </div>
+                        </div>
+                    </ul>
+                </nav>
+                
+                <?php
                 if (isset($_GET['customers'])) {
                     include 'customers.php';
                 }elseif (isset($_GET['employees'])) {
@@ -88,5 +89,8 @@ while ($bookingRow = $bookingResult->fetch_assoc()) {
                     include 'home.php';
                 }
             ?>
-        </main>
-    </section>
+            </div>
+        </section>
+    </main>
+</body>
+</html>

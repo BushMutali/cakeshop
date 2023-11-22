@@ -1,93 +1,112 @@
-<?php
-if (isset($_GET['cake-added'])) {
-    echo '
-    <script>
-    alert("Cake added successfully");
-    </script>
-    ';
-    include 'config/db.php';
-}
-?>
-<div class="customer-admin-page scroll">
-    <div class="cakes-container">
-        <div class="dashboard-card">
-            
-            <h1><i class="fa-solid fa-user-group"></i><a href="dashboard.php?customers">Customers</a></h1>
-            <?php
-    $sql = "SELECT COUNT(*) as total_rows FROM customers";
-    $result = $conn->query($sql);
-    
-    if ($result->num_rows > 0) {
-        // Output data of each row
-        while($row = $result->fetch_assoc()) {
-            echo "<h5>".$row["total_rows"]."</h5>";
-        }
-    } else {
-        echo "<h5>No customers available</h5>";
-    }
-            ?>
-                 
-        </div>
-        <div class="dashboard-card">
-            
-            <h1><i class="fa-solid fa-users"></i><a href="dashboard.php?employees">Employees</a></h1>
-            <?php
-                $sql = "SELECT COUNT(*) as total_rows FROM employees";
-                $result = $conn->query($sql);
-                
-                if ($result->num_rows > 0) {
-                    // Output data of each row
-                    while($row = $result->fetch_assoc()) {
-                        echo "<h5>".$row["total_rows"]."</h5>";
-                    }
-                } else {
-                    echo "<h5>No employees available</h5>";
-                }
-            ?>
-        </div>
-        <div class="dashboard-card">
-            
-            <h1><i class="fa-solid fa-bookmark"></i><a href="dashboard.php?bookings">Bookings</a></h1>
-            <?php
-    $sql = "SELECT COUNT(*) as total_rows FROM bookings";
-    $result = $conn->query($sql);
-    
-    if ($result->num_rows > 0) {
-        // Output data of each row
-        while($row = $result->fetch_assoc()) {
-            echo "<h5>".$row["total_rows"]."</h5>";
-        }
-    } else {
-        echo "<h5>No bookings available</h5>";
-    }
-            ?>        
-        </div>
-        <div class="dashboard-card">
-            <h1><i class="fa-solid fa-file-invoice"></i><a href="dashboard.php?invoices">Invoices</a></h1>
-            <?php
-    $sql = "SELECT COUNT(*) as total_rows FROM invoices";
-    $result = $conn->query($sql);
-    
-    if ($result->num_rows > 0) {
-        // Output data of each row
-        while($row = $result->fetch_assoc()) {
-            echo "<h5>".$row["total_rows"]."</h5>";
-        }
-    } else {
-        echo "<h5>No invoices available</h5>";
-    }
-            ?>       
-        </div>
-    </div>
-    <div class="cakes-container">
-        <div class="dashboard-card">
-            <a href="add.php"><h1><i class="fa-solid fa-file-invoice"></i>Add Cake</h1>
-            <h5>+</h5></a>  
-        </div>
-        <div class="dashboard-card">
-            <a href="../employee/signup.php""><h1><i class="fa-solid fa-file-invoice"></i>Add Employee</h1>
-            <h5>+</h5></a>  
-        </div>
-
-    </div>
-</div>
+<div class="summary-count">
+                    <div class="box">
+                        <div class="overlay-bg">
+                            <h1>This Month Revenue</h1>
+                            <h2>KES 25000</h2>
+                            <span>+23.4%</span>
+                        </div>
+                    </div>
+                    <div class="box">
+                        <div class="overlay-bg">
+                            <h1>Today Earnings</h1>
+                            <h2>KES 5000</h2>
+                            <span>+2.8%</span>
+                        </div>
+                    </div>
+                    <div class="box">
+                        <div class="overlay-bg">
+                            <h1>Cakes Sold</h1>
+                            <h2>KES 2500</h2>
+                            <span>+56.1%</span>
+                        </div>
+                    </div>
+                    <div class="box">
+                        <div class="overlay-bg">
+                            <h1>This Month Revenue</h1>
+                            <h2>KES 25000</h2>
+                            <span>+13.6%</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="manage-count">
+                    <div class="container-bx">
+                        <div class="overlay-bg">
+                            <h1>Manage Customers</h1>
+                            <h2><?php
+                                    $sql = "SELECT COUNT(*) as total_rows FROM customers";
+                                    $result = $conn->query($sql);
+                                    
+                                    if ($result->num_rows > 0) {
+                                        // Output data of each row
+                                        while($row = $result->fetch_assoc()) {
+                                            echo $row["total_rows"];
+                                        }
+                                    } else {
+                                        echo "No customers available";
+                                    }
+                                            ?>
+                                    </h2>
+                            <a href="dashboard.php?customers">manage</a>
+                        </div>
+                    </div>
+                    <div class="container-bx">
+                        <div class="overlay-bg">
+                            <h1>Manage Employees</h1>
+                            <h2><?php
+                                        $sql = "SELECT COUNT(*) as total_rows FROM employees";
+                                        $result = $conn->query($sql);
+                                        
+                                        if ($result->num_rows > 0) {
+                                            // Output data of each row
+                                            while($row = $result->fetch_assoc()) {
+                                                echo $row["total_rows"];
+                                            }
+                                        } else {
+                                            echo "No employees available";
+                                        }
+                                    ?>
+                                </h2>
+                            <a href="dashboard.php?employees">manage</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="manage-count">
+                    <div class="container-bx">
+                        <div class="overlay-bg">
+                            <h1>Manage Cakes</h1>
+                            <h2><?php
+                                    $sql = "SELECT COUNT(*) as total_cakes FROM cakes";
+                                    $result = $conn->query($sql);
+                                    
+                                    if ($result->num_rows > 0) {
+                                        // Output data of each row
+                                        while($row = $result->fetch_assoc()) {
+                                            echo $row["total_cakes"];
+                                        }
+                                    } else {
+                                        echo "No cakes available";
+                                    }
+                                ?></h2>
+                            <a href="dashboard.php?cakes">manage</a>
+                        </div>
+                    </div>
+                    <div class="container-bx">
+                        <div class="overlay-bg">
+                            <h1>Bookings</h1>
+                            <h2><?php
+                                    $sql = "SELECT COUNT(*) as total_bookings FROM bookings";
+                                    $result = $conn->query($sql);
+                                    
+                                    if ($result->num_rows > 0) {
+                                        // Output data of each row
+                                        while($row = $result->fetch_assoc()) {
+                                            echo $row["total_bookings"];
+                                        }
+                                    } else {
+                                        echo "No bookings available";
+                                    }
+                                ?></h2>
+                            <a href="dashboard.php?bookings">view</a>
+                        </div>
+                    </div>
+                </div>

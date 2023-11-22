@@ -34,7 +34,7 @@
                             echo 'Email already in use. Try another one!';
                         }elseif (isset($_GET['invalidname'])) {
                             echo 'Invalid name format!';
-                        }
+                        } 
                     ?></p>
                     <div class="form-input">
                         <label>username</label>

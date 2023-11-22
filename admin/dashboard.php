@@ -3,7 +3,11 @@ include 'header.php';
 require'../config/db.php';
 
 // customers 
-$sql = "SELECT * FROM customers";
+$sql = "SELECT 'customer' as type, customers.*, invoices.invoice_number, invoices.due_date, invoices.total_amount, invoices.payment_status
+FROM customers
+LEFT JOIN invoices ON customers.id = invoices.customer_id";
+
+
 $result = $conn->query($sql);
 
 $customers = array();
@@ -12,8 +16,11 @@ while ($row = $result->fetch_assoc()) {
     $customers[] = $row;
 }
 
+
 // employees 
-$employeeSql = "SELECT * FROM employees";
+$employeeSql = "SELECT 'employee' as type, employees.*, invoices.invoice_number, invoices.due_date, invoices.total_amount, invoices.payment_status
+FROM employees
+LEFT JOIN invoices ON employees.employee_id = invoices.customer_id";
 $employeeResult = $conn->query($employeeSql);
 
 $employees = array();
@@ -34,11 +41,22 @@ while ($bookingRow = $bookingResult->fetch_assoc()) {
 ?>
 
 <!-- notification -->
+<?php if(isset($_GET['notification'])):?>
     <div class="item-deleted" id="animatedDiv">
-        <h1>Deleted</h1> <div class="wrapper"> <svg class="checkmark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52"> <circle class="checkmark__circle" cx="26" cy="26" r="25" fill="none"/> <path class="checkmark__check" fill="none" d="M14.1 27.2l7.1 7.2 16.7-16.8"/>
+        <h1><?php if (isset($_GET['success'])){
+                            echo 'Deleted';
+                        }elseif (isset($_GET['updated'])){
+                            echo 'Success';
+                        }elseif (isset($_GET['regsuccess'])){
+                            echo 'Added';
+                        }?>
+        </h1> <div class="wrapper"> <svg class="checkmark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52"> <circle class="checkmark__circle" cx="26" cy="26" r="25" fill="none"/> <path class="checkmark__check" fill="none" d="M14.1 27.2l7.1 7.2 16.7-16.8"/>
         </svg>
         </div>
+
     </div>
+    <audio id="notificationSound" src="../assets/notification.mp3"></audio>
+    <?php endif; ?>
 <!-- end notification  -->
     <main>
         <section class="dashboard-container">
@@ -71,7 +89,7 @@ while ($bookingRow = $bookingResult->fetch_assoc()) {
                                 <img src="../assets/img/avatar.jpg" alt="profile image">
                             </div>
                             <div class="text">
-                                <h4>Admin</h4>
+                                <h4><?php echo $_SESSION["admin"]?></h4>
                                 <p>admin@gmail.com</p>
                             </div>
                         </div>

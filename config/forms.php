@@ -61,14 +61,14 @@ if (isset($_POST['delete-customer'])){
         foreach ($selectedCustomers as $customerId) {
             $deleteQuery = "DELETE FROM customers WHERE id IN (" . implode(",", $selectedCustomers) . ")";
             if ($conn->query($deleteQuery) === TRUE) {
-                header('location: ../admin/dashboard.php?customers&success');
+                header('location: ../admin/dashboard.php?notification&customers&success');
                 exit();
             } else {
                 echo "Error deleting customers: " . $conn->error;
             }
         }
     }
-    else{
+    else{ 
         header('location: ../admin/dashboard.php?customers&noneselected');
         exit();
     }
@@ -80,7 +80,7 @@ if (isset($_POST['delete-employee'])){
         foreach ($selectedEmployees as $employeeId) {
             $deleteQuery = "DELETE FROM employees WHERE id IN (" . implode(",", $selectedEmployees) . ")";
             if ($conn->query($deleteQuery) === TRUE) {
-                header('location: ../admin/dashboard.php?employees&success');
+                header('location: ../admin/dashboard.php?notification&employees&success');
                 exit();
             } else {
                 echo "Error deleting employee: " . $conn->error;

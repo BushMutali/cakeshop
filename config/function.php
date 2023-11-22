@@ -185,7 +185,7 @@ function updateCustomer($conn, $customerId, $newCustomerName, $newCustomerEmail)
     mysqli_stmt_execute($stmt);
 
     mysqli_stmt_close($stmt);
-    header('location: ../admin/dashboard.php?updated');
+    header('location: ../admin/dashboard.php?notification&updated');
 }
 
 
@@ -208,7 +208,7 @@ function createEmployee($conn, $employee_name, $employee_email, $password1){
     $hashedPassword = password_hash($password1, PASSWORD_DEFAULT);
     mysqli_stmt_bind_param($stmt, 'sss', $employee_name, $employee_email, $hashedPassword);
     mysqli_stmt_execute($stmt);
-    header("location: ../admin/dashboard.php?employees&regsuccess");
+    header("location: ../admin/dashboard.php?notification&employees&regsuccess");
 }
 
 function loginEmployee($conn, $employee_email, $employee_password){

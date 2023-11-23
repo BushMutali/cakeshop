@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', function () {
-    var cakesPerPage = 9;
+    var cakesPerPage = 3;
     var $cakes = $('#cake-list .cake-box');
     var numberOfPages = Math.ceil($cakes.length / cakesPerPage);
 

@@ -38,7 +38,7 @@
                                             <?php foreach ($cakes as $cake): ?>
                                             <tr>
                                                 <td class="newColumn"><input type="checkbox" name="cake[]" value="<?=$cake['id']?>"></td>
-                                                <td class="newColumn"><a href="edit.php?id=<?= $cake['id']; ?>&name=<?= $cake['name'];?>&category=<?= $cake['category'];?>"<i class="fa-solid fa-pen-to-square"></i></a></td>
+                                                <td class="newColumn"><a href="update.php?id=<?= $cake['id']; ?>"<i class="fa-solid fa-pen-to-square"></i></a></td>
                                                 <td class="column1"><?=$cake['name']?></td>
                                                 <td class="column2"><?=$cake['category']?></td>
                                                 <td class="column3"><?=$cake['description']?></td>

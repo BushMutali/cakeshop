@@ -33,7 +33,7 @@
                     </div>
                     <div class="cake-text">
                         <h2><?=$cakes['name']?></h2>
-                        <p data-price="250">Ksh. <?=$cakes['price']?></p>
+                        <p data-price="<?=$cakes['price']?>">Ksh. <?=$cakes['price']?></p>
                     </div>
                     <button class="add-to-cart-btn">add to cart</button>
                 </div>
@@ -85,15 +85,6 @@
         <br>
         &copy; 2023 Cake Haven. All Rights Reserved.
     </footer>
-    <script>
-            function openCartPage() {
-                // Display the loading overlay
-                var loadingOverlay = document.getElementById('loading-overlay');
-                loadingOverlay.style.display = 'flex';
-                setTimeout(function () {
-                    window.location.href = 'cart.html';
-                }, 600);
-            }
-    </script>
+    
 </body>
 </html>

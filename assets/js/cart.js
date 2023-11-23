@@ -56,7 +56,7 @@ document.addEventListener('DOMContentLoaded', function () {
            var imgContainer = document.createElement('div');
            imgContainer.className = 'img';
            var img = document.createElement('img');
-           img.src = item.imageSrc;
+           img.src = `assets/img/cakes/${item.imageSrc}`;
            img.alt = 'cake image';
            imgContainer.appendChild(img);
 
@@ -124,19 +124,61 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
 
-        function updateTotal() {
-            var cart = JSON.parse(localStorage.getItem('cart')) || [];
-            
-            var total = cart.reduce((total, item) => total + (item.price * item.quantity), 0);
+    function updateTotal() {
+        var cart = JSON.parse(localStorage.getItem('cart')) || [];
+        
+        var total = cart.reduce((total, item) => total + (item.price * item.quantity), 0);
 
-            var totalSpan = document.querySelector('#subtotal span');
-            var payableSpan = document.querySelector('#payable span');
-            var amountInput = document.getElementById('amount-input');
+        var totalSpan = document.querySelector('#subtotal span');
+        var payableSpan = document.querySelector('#payable span');
+        var amountInput = document.getElementById('amount-input');
+        var amountInput2 = document.getElementById('amount-input2');
 
-            totalSpan.textContent = total.toLocaleString('en-US', { style: 'currency', currency: 'KES' });
-            payableSpan.textContent = total.toLocaleString('en-US', { style: 'currency', currency: 'KES' });
-            amountInput.value = total.toLocaleString('en-US');
-        }
+        totalSpan.textContent = total.toLocaleString('en-US', { style: 'currency', currency: 'KES' });
+        payableSpan.textContent = total.toLocaleString('en-US', { style: 'currency', currency: 'KES' });
+        amountInput.value = parseInt(total.toLocaleString('en-US').replace(/,/g, ''));
+        amountInput2.value = parseInt(total.toLocaleString('en-US').replace(/,/g, ''));
+    }
         updateTotal();
 
+        function removeFromCart(name) {
+            var cart = JSON.parse(localStorage.getItem('cart')) || [];
+        
+            // Find the index of the item with the given name in the cart array
+            var itemIndex = cart.findIndex(item => item.name === name);
+        
+            if (itemIndex !== -1) {
+                // Remove the item from the cart array
+                cart.splice(itemIndex, 1);
+        
+                // Update the cart count
+                var cartCount = cart.reduce((total, item) => total + item.quantity, 0);
+                countSpan.textContent = cartCount;
+        
+                // Update the local storage
+                localStorage.setItem('cart', JSON.stringify(cart));
+                // Remove the corresponding cart item from the DOM (assuming you have a structure for displaying cart items)
+        removeCartItemFromDOM(name);
+            }
+        }
+
+        function removeCartItemFromDOM(name) {
+            // Assuming each cart item has a unique identifier based on its name
+            var cartItemToRemove = document.getElementById(name);
+        
+            // Check if the cart item element exists before trying to remove it
+            if (cartItemToRemove) {
+                cartItemToRemove.remove();
+            }
+        }
+        
+        var removeButtons = document.querySelectorAll('.remove-btn');
+        removeButtons.forEach(function (button) {
+            button.addEventListener('click', function () {
+                // Get the corresponding cart item name (you need to adapt this based on your HTML structure)
+                var itemName = button.closest('.cart-item').querySelector('.item-name').textContent;
+                removeFromCart(itemName);
+                location.reload();
+            });
+        });
 });

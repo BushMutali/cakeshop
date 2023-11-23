@@ -1,5 +1,4 @@
 <?php
-    session_start();
     if (isset($_SESSION["customer_name"])) {
         $customer_name = $_SESSION["customer_name"];
         $customer_email = $_SESSION["customer_email"];
@@ -7,21 +6,9 @@
         $employee_name = $_SESSION["employee_name"];
         $employee_email = $_SESSION["employee_email"];
     }
+    include 'header.php';
 ?>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Training Application</title>
-    <link rel="stylesheet" type="text/css" href="assets/styles/style.css">
-    <!-- fontawesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-</head>
-<body>
-
-    <section class="order-page">
-        <?php
+<?php
             if (isset($_GET["id"])):?>
     <div class="payment">
             <div class="payment-content">
@@ -44,9 +31,11 @@
             </div>
             </div>
             <?php endif; ?>
-        <div class="title order">
+<link rel="stylesheet" href="assets/styles/style_old.css">
+    <section class="order-page">
+        
+        <div class="title ordering">
             <h1>Application</h1>
-            <a href="index.php">Home</a>
         </div>
         <form action="config/forms.php" method="post">
             <h1 style="color: red; font-size: 12px;"><?php if (isset($_GET['empty'])){
@@ -62,13 +51,20 @@
             </div>
             <div class="form-input">
                 <label>Email</label>
-                <input type="email" name="email" required>
+                <input type="email" name="email" value="<?php if(isset($_SESSION['user_email'])){
+                    echo $_SESSION['user_email'];}?>" required>
             </div>
             <div class="form-input">
                 <label>Town</label>
                 <input type="text" name="town" required>
             </div>
+            <?php if (isset($_SESSION["user_email"])):?>
             <input type="submit" name="apply" value="Apply">
+            <?php else:?>
+                <span>You need to have an account in order to apply</span>
+            <a href="login.php?loginrequired">Login</a>
+            <a href="signup.php">Signup</a>
+            <?php endif;?>
         </form>
     </section>
 </body>

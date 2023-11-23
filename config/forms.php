@@ -92,6 +92,24 @@ if (isset($_POST['delete-employee'])){
         exit();
     }
 }
+if (isset($_POST['delete-invoice'])){
+    if (isset($_POST['invoice'])) {
+        $selectedInvoices = $_POST['invoice'];
+        foreach ($selectedInvoices as $employeeId) {
+            $deleteQuery = "DELETE FROM invoices WHERE invoice_number IN (" . implode(",", $selectedInvoices) . ")";
+            if ($conn->query($deleteQuery) === TRUE) {
+                header('location: ../admin/dashboard.php?notification&invoice&success');
+                exit();
+            } else {
+                echo "Error deleting employee: " . $conn->error;
+            }
+        }
+    }
+    else{
+        header('location: ../admin/dashboard.php?invoice&noneselected');
+        exit();
+    }
+}
 
 if(isset($_POST['customer-update'])){
     $customerId = $_POST['userid'];
@@ -120,7 +138,6 @@ if (isset($_POST['place-order'])) {
     $randomBytes = random_bytes(3);
     $randomString = bin2hex($randomBytes);
     $bookingId = 'ORD-' . $randomString;
-    $name = $_POST['user_name'];
     $email = $_POST['user_email'];
     $cake_type = $_POST['cake-type'];
     $cake_filling = $_POST['cake-filling'];
@@ -139,7 +156,7 @@ if (isset($_POST['place-order'])) {
     }elseif ($_POST['cake-size'] == "25cm") {
         $price = 3500;
     }
-    addOrder($conn, $bookingId, $name, $email, $cake_type, $cake_filling, $cake_shape, $message, $cake_size, $cake_design, $price);
+    addOrder($conn, $bookingId, $email, $cake_type, $cake_filling, $cake_shape, $message, $cake_size, $cake_design, $price);
 }
 
 
@@ -254,4 +271,67 @@ if (isset($_POST['apply'])) {
     mysqli_close($conn);
 
     header("location: ../training.php?id=$applicationNo");
+}
+
+if (isset($_POST['confirm'])) {
+    $phone = $_POST['phone'];
+    $amount = $_POST['amount'];
+    header("location: ../index.php?confirm&phone=$phone&amount=$amount");
+    exit();
+}
+
+if (isset($_POST['update-cake'])) {
+    $cake_name = $_POST['cake_name'];
+    $cake_price = $_POST['cake_price'];
+    $cake_description = $_POST['cake_description'];
+    $category = $_POST['category'];
+    $id = $_POST['id'];
+
+    if (!preg_match('/^[a-zA-ZA\s]*$/', $cake_name)) {
+        header('location: ../admin/update.php?invalidname');
+        exit();
+    }
+
+    if (preg_match('/^[a-zA-ZA\s]*$/', $cake_price)) {
+        header("location: ../admin/update.php?invalidpriceformat");
+        exit();
+    }
+
+    if(empty($cake_name) || empty($cake_price) || empty($cake_description)){
+        header('location: ../admin/update.php?empty');
+        exit();
+    }
+
+        if($_FILES["image"]["error"] === UPLOAD_ERR_OK){
+            $tempFilePath = $_FILES["image"]["tmp_name"];
+            $originalFileName = $_FILES["image"]["name"];
+            $fileInfo = pathinfo(($originalFileName));
+        
+
+        // ensure a unique name to avoid overwriting existing files
+        $newFileName = uniqid() . '_'. random_int(1, 1000). '.' . $fileInfo["extension"];
+        $newFilePath = "../assets/img/cakes/" . $newFileName;
+
+        updateCake($conn, $id, $cake_name, $category, $cake_price, $cake_description, $newFileName);
+        move_uploaded_file($tempFilePath, $newFilePath);
+        }
+}
+
+if (isset($_POST['delete-cake'])){
+    if (isset($_POST['cake'])) {
+        $selectedCake = $_POST['cake'];
+        foreach ($selectedCake as $cakeId) {
+            $deleteQuery = "DELETE FROM cakes WHERE id IN (" . implode(",", $selectedCake) . ")";
+            if ($conn->query($deleteQuery) === TRUE) {
+                header('location: ../admin/dashboard.php?cakes&notification&success');
+                exit();
+            } else {
+                echo "Error deleting employee: " . $conn->error;
+            }
+        }
+    }
+    else{
+        header('location: ../admin/dashboard.php?cakes&noneselected');
+        exit();
+    }
 }

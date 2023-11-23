@@ -6,8 +6,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="script.js" async></script>
-    <script src="cart.js" async></script>
+    <script src="assets/js/script.js" async></script>
+    <script src="assets/js/cart.js" async></script>
     <title>Cake Haven</title>
     <link rel="stylesheet" href="assets/styles/style.css">
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
@@ -22,11 +22,66 @@
 
 </head>
 <body>
+  <!-- notification -->
+<?php if(isset($_GET['notification'])):?>
+    <div class="item-deleted" id="animatedDiv">
+        <h1><?php if (isset($_GET['success'])){
+                            echo 'Paid';
+                            }else{
+                              echo 'Failed';
+                            }
+                            echo '<script>localStorage.removeItem("cart");</script>';?>
+        </h1> <div class="wrapper"> <svg class="checkmark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52"> <circle class="checkmark__circle" cx="26" cy="26" r="25" fill="none"/> <path class="checkmark__check" fill="none" d="M14.1 27.2l7.1 7.2 16.7-16.8"/>
+        </svg>
+        </div>
+
+    </div>
+    <audio id="notificationSound" src="assets/notification.mp3"></audio>
+    <?php endif; ?>
+<?php 
+      if (isset($_GET['confirm'])):?>
+<div class="confirm-overlay">
+          <form action="config/payment/stk_initiate.php" method="post">
+          <i class="fa-solid fa-circle-info"></i><p>Please confirm your transaction </p>
+          
+             <input type='hidden' name='amount' value='<?=$_GET['amount']?>'>
+             <input type="hidden" name="phone" value="<?=$_GET['phone']?>">
+            <button type="submit" name="pay">CONFIRM <i class="fa-regular fa-circle-check"></i></button>
+          </form>
+        </div>
+        <?php endif; ?>
 <main>
         <div id="loading-overlay" class="load">
             <div class="spinner-border text-warning" role="status">
                 <span class="sr-only">Loading...</span>
               </div>
         </div>
+        
         <section class="header">
             <?php include 'navbar.php'; ?>
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const animatedDiv = document.getElementById("animatedDiv");
+    const notificationSound = document.getElementById("notificationSound");
+
+    animatedDiv.style.opacity = "0";
+
+    function animateDiv() {
+        animatedDiv.style.opacity = "1";
+        animatedDiv.style.left = "20px";
+
+        // Play the notification sound
+        notificationSound.play();
+
+        setTimeout(() => {
+            animatedDiv.style.left = "-200px";
+            animatedDiv.style.opacity = ".3";
+        }, 4000);
+    }
+
+    animateDiv();
+
+           
+
+});
+</script>

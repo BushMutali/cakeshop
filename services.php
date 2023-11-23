@@ -2,20 +2,20 @@
 include 'header.php';
 
 ?>
-
+<link rel="stylesheet" href="assets/styles/style_old.css">
 <section class="services">
         <h1>Our Services</h1>
         <div class="hero">
         
         </div>
             <div class="services-container">
-                <div class="training box">
+                <div class="training box1">
                 <img src="assets/img/chef.png" alt="deliveries">
                     <h3>Training</h3>
                     <p>We offer training classes to those who wish to learn how to bake cakes</p>
                     <button><a href="training.php">Apply Today</a></button>
                 </div>
-                <div class="deliveries box">
+                <div class="deliveries box1">
                     <img src="assets/img/delivery.png" alt="deliveries">
                     <h3>Deliveries</h3>
                     <p>We offer deliveries to your door step</p>
@@ -25,13 +25,13 @@ include 'header.php';
                         <button><a href="login.php?loginrequired">Track Order</a></button>
                     <?php endif; ?>
                 </div>
-                <div class="event-planning box">
+                <div class="event-planning box1">
                     <img src="assets/img/event.png" alt="deliveries">
                     <h3>Event Planning</h3>
                     <p>We offer event, ceremonies planning</p>
                     <button><a href="">Read More</a></button>
                 </div>
-                <div class="cakes box">
+                <div class="cake box1">
                     <img src="assets/img/order.png" alt="deliveries">
                     <h3>Cakes</h3>
                     <p>Order your custom cakes</p>

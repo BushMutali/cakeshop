@@ -18,6 +18,7 @@ $_GET['amount'] = $row['amount'];
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Make Payment</title>
     <link rel="stylesheet" type="text/css" href="assets/styles/style.css">
+    <link rel="stylesheet" type="text/css" href="assets/styles/style_old.css">
     <!-- fontawesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
@@ -36,10 +37,10 @@ $_GET['amount'] = $row['amount'];
             </div>
             <?php endif; ?>
     
-        <div class="title order">
+        <div class="title ordering">
             <h2>Checkout</h2>
         </div>
-        <form action="config/stk_initiate.php" method="POST" class="pay">
+        <form action="config/payment/stk_initiate.php" method="POST" class="pay">
             <div class="form-header-title">
                 <img src="assets/img/mpesa-logo.png" width="100px">
                 <h3>Confirm Payment of Ksh. <?=$_GET['amount']?> for <?=$_GET['id']?></h3>

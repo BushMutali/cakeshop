@@ -73,7 +73,7 @@ while ($bookingRow = $bookingResult->fetch_assoc()) {
                             </div>
                             <div class="text">
                                 <h4><?php echo $_SESSION["employee_name"]?></h4>
-                                <p><?php echo $_SESSION["employee_email"]?></p>
+                                <p><?php echo $_SESSION["user_email"]?></p>
                             </div>
                         </div>
                     </ul>

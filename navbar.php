@@ -31,3 +31,15 @@
                 <li><i class="fa-solid fa-cart-shopping" id="cart-icon" onclick="openCartPage()"><span>0</span></i></li>
                 </ul>
             </div>
+
+
+            <script>
+                 function openCartPage() {
+                // Display the loading overlay
+                var loadingOverlay = document.getElementById('loading-overlay');
+                loadingOverlay.style.display = 'flex';
+                setTimeout(function () {
+                    window.location.href = 'cart.php';
+                }, 600);
+            }
+            </script>

@@ -673,17 +673,17 @@ color: var(--creamy-yellow);
     flex-wrap: wrap;
 }
 
-.box img{
+.box1 img{
     width: 150px;
 }
-.box{
+.box1{
     height: 320px;
     width: 200px;
     display: flex;
     flex-direction: column;
     position: relative;
 }
-.box button{
+.box1 button{
     position: absolute;
     bottom: 0;
     height: 35px;
@@ -692,14 +692,14 @@ color: var(--creamy-yellow);
     padding: 0 5px;
 }
 
-.box button a{
+.box1 button a{
     text-decoration: none;
     color: var(--creamy-yellow);
 }
 /* end services page  */
 
 .order-page{
-    background: var(--creamy-yellow);
+
     width: 100%;
     min-height: 100vh;
     position: relative;

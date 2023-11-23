@@ -48,6 +48,16 @@ $bookings = array();
 while ($bookingRow = $bookingResult->fetch_assoc()) {
     $bookings[] = $bookingRow;
 }
+
+// invoices
+
+$invoiceSql = "SELECT * FROM invoices";
+$invoiceResult = $conn->query($invoiceSql);
+$invoices = array();
+
+while ($invoiceRow = $invoiceResult->fetch_assoc()) {
+    $invoices[] = $invoiceRow;
+}
 ?>
 
 <!-- notification -->
@@ -118,6 +128,8 @@ while ($bookingRow = $bookingResult->fetch_assoc()) {
                     include 'bookings.php';
                 } elseif (isset($_GET['cakes'])){
                     include 'cakes.php';
+                }else if (isset($_GET['invoice'])) {
+                    include 'invoice.php';
                 }else{
                     include 'home.php';
                 }

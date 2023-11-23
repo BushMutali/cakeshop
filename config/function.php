@@ -121,7 +121,7 @@ function loginCustomer($conn, $customer_email, $customer_password){
         header("location: ../login.php?emaildoesnotexist");
         exit();
     }
-
+ 
     $hashedPass = $emailExists["password"];
     $checkpass = password_verify($customer_password, $hashedPass);
 
@@ -132,8 +132,8 @@ function loginCustomer($conn, $customer_email, $customer_password){
 
     elseif ($checkpass === true) {
         session_start();
-        $_SESSION["customer_name"] = $emailExists["customer_name"];
-        $_SESSION["customer_email"] = $emailExists["customer_email"];
+        $_SESSION["customer_name"] = $emailExists["name"];
+        $_SESSION["user_email"] = $emailExists["email"];
         if (isset($_SESSION['redirect_url'])) {
             $redirectURL = $_SESSION['redirect_url'];
             unset($_SESSION['redirect_url']);
@@ -191,11 +191,12 @@ function updateCustomer($conn, $customerId, $newCustomerName, $newCustomerEmail)
 
 
 
-function addOrder($conn, $bookingId, $name, $email, $cake_type, $cake_filling, $cake_shape, $message, $cake_size, $cake_design, $price){
-    $sql = "INSERT INTO bookings (booking_id, _name, email, cake_type, cake_filling, cake_shape, _message, cake_size, cake_design, amount) VALUES (?,?,?,?,?,?,?,?,?,?);";
+function addOrder($conn, $bookingId, $email, $cake_type, $cake_filling, $cake_shape, $message, $cake_size, $cake_design, $price){
+    $status = "paid";
+    $sql = "INSERT INTO bookings (booking_id, email, cake_type, cake_filling, cake_shape, cake_message, cake_size, cake_design, amount, payment_status) VALUES (?,?,?,?,?,?,?,?,?,?);";
     $stmt = mysqli_stmt_init($conn);
     mysqli_stmt_prepare($stmt, $sql);
-    mysqli_stmt_bind_param($stmt, 'sssssssssi', $bookingId, $name, $email, $cake_type, $cake_filling, $cake_shape, $message, $cake_size, $cake_design, $price);
+    mysqli_stmt_bind_param($stmt, 'ssssssssis', $bookingId, $email, $cake_type, $cake_filling, $cake_shape, $message, $cake_size, $cake_design, $price, $status);
     mysqli_stmt_execute($stmt);
     mysqli_stmt_close($stmt);
 
@@ -231,7 +232,7 @@ function loginEmployee($conn, $employee_email, $employee_password){
     elseif ($checkpass === true) {
         session_start();
         $_SESSION["employee_name"] = $employeeEmailExists["name"];
-        $_SESSION["employee_email"] = $employeeEmailExists["email"];
+        $_SESSION["user_email"] = $employeeEmailExists["email"];
         header("location: ../index.php");
         exit();
     }
@@ -271,7 +272,21 @@ function addCake($conn, $cake_name, $category, $cake_price, $cake_description, $
         mysqli_stmt_execute($stmt);
         mysqli_stmt_close($stmt);
         mysqli_close($conn);
-        header("location: ../admin/dashboard.php?notification&cake-added");
+        header("location: ../admin/dashboard.php?cakes&notification&cake-added");
     }
 
+}
+
+function updateCake($conn, $id, $cake_name, $category, $cake_price, $cake_description, $newFileName){
+    
+    $sql = "UPDATE cakes SET name=?, category=?, price=?, description=?, img_file_path=? WHERE id=?";
+    
+    $stmt = mysqli_stmt_init($conn);
+    mysqli_stmt_prepare($stmt, $sql);
+    mysqli_stmt_bind_param($stmt, "sssssi", $cake_name, $category, $cake_price, $cake_description, $newFileName, $id);
+    mysqli_stmt_execute($stmt);
+    mysqli_stmt_close($stmt);
+    mysqli_close($conn);
+    
+    header("location: ../admin/dashboard.php?cakes&notification&updated");
 }
